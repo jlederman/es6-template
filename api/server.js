@@ -86,6 +86,8 @@ app.post('/post', async(req, res) => {
         for (let i of data) {
             console.log(i);
             res.json(`hello ${[i.k, i.v, i.h]}`)
+            await mssql.connect(dbConfig)
+            const writeSql = await mssql.query `use backendApiDatabase insert into defaultTable (id, userName, password) VALUES (${i.h}, ${i.k}, ${i.v});`
 
         }
         // sql write
